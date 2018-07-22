@@ -1,3 +1,28 @@
+<p align="center">
+    <a href="#">
+        <img src="https://img.qweqwe.ovh/docker-gmod.png"></a>
+</p>
+
+<p align="center">
+    <a href="https://hub.docker.com/r/defaced/gmod-server/">
+        <img src="https://img.shields.io/docker/build/defaced/gmod-server.svg"></a>
+    <a href="https://hub.docker.com/r/defaced/gmod-server/">
+        <img src="https://img.shields.io/docker/pulls/defaced/gmod-server.svg"></a>
+    <a href="https://hub.docker.com/r/defaced/gmod-server/">
+        <img src="https://img.shields.io/docker/stars/defaced/gmod-server.svg"></a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/AMD-NICK/docker-garrysmod-server/stargazers">
+        <img src="https://img.shields.io/github/stars/AMD-NICK/docker-garrysmod-server.svg?style=social&label=Stars"></a>
+    <a href="https://github.com/AMD-NICK/docker-garrysmod-server/network">
+        <img src="https://img.shields.io/github/forks/AMD-NICK/docker-garrysmod-server.svg?style=social&label=Forks"></a>
+    <a href="https://github.com/AMD-NICK/docker-garrysmod-server/issues">
+        <img src="https://img.shields.io/github/issues/AMD-NICK/docker-garrysmod-server.svg?style=social&label=Issues"></a>
+</p>
+
+
+
 # Dockerized Garry's Mod server
 Runs your gmod server in container as an executable
 
