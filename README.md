@@ -16,9 +16,10 @@ git clone https://github.com/FPtje/DarkRP.git darkrp
 # 	to folders and files that you forwarded to container (/data, sv.db etc)
 chown -Rv 999:999 .
 
+PORT=27017
+
 docker run --rm -it --name myserver \
 	-p $PORT:$PORT/udp \
-	-p $SOCKET:$SOCKET/tcp \
 	-v $PWD/myserver/darkrp:/home/steam/gmodserv/garrysmod/gamemodes/darkrp/ \
 	-v $PWD/myserver/data:/home/steam/gmodserv/garrysmod/data/ \
 	-v $PWD/myserver/addons:/home/steam/gmodserv/garrysmod/addons/ \
@@ -26,10 +27,10 @@ docker run --rm -it --name myserver \
 	-v $PWD/myserver/sv.db:/home/steam/gmodserv/garrysmod/sv.db \
 	defaced/gmod-server \
 		-port $PORT \
-		-tickrate 16 \
-		-maxplayers 16 \
+		-tickrate 32 \
+		-maxplayers 8 \
 		-insecure \
-		+gamemode sandbox \
+		+gamemode darkrp \
 		+map gm_construct \
 		+host_workshop_collection WORKSHOP_ID \
 		-authkey AUTH_KEY
