@@ -14,21 +14,19 @@ RUN apt-get update \
 # Cleanup
 # ===================================
 
-RUN apt-get clean
-RUN rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/*
+RUN apt-get clean \
+	&& rm -rf /tmp/* /var/lib/apt/lists/*
 
 
 # Security
 # ===================================
 
-RUN groupadd -g 999 steam && \
-    useradd -r -u 999 -g steam steam
+RUN groupadd -g 999 steam \
+	&& useradd -r -u 999 -g steam steam
 
 WORKDIR /home/steam
-RUN mkdir -p steamcmd gmodserv content/css
-RUN chown -vR steam:steam /home/steam
+RUN mkdir -p steamcmd gmodserv content/css \
+	&& chown -vR steam:steam /home/steam
 
 USER steam
 
@@ -57,4 +55,5 @@ RUN echo '"mountcfg" {"cstrike" "/home/steam/content/css/cstrike"}' > /home/stea
 # ===================================
 
 WORKDIR /home/steam/gmodserv
-ENTRYPOINT ["./srcds_run", "-game garrysmod", "-console", "-norestart", "-strictportbind"]
+ENTRYPOINT ["./srcds_run"]
+CMD ["-game garrysmod", "-console", "-norestart", "-strictportbind"]
