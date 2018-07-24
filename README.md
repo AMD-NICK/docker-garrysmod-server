@@ -27,38 +27,18 @@
 Runs your gmod server in container as an executable
 
 # Example
+For detailed info look inside start.sh and docker-compose.yml
 
+Also you can run your server with `docker run`. Simple example:
 ```bash
-mkdir myserver && cd myserver
-mkdir addons data luabin
-touch sv.db
-
-git clone https://github.com/FPtje/DarkRP.git darkrp
-
-# It's important! All files must have such rights
-# srsds_run inside the container is launched NOT via root
-# If this is not done, the server will not be able to write data
-# 	to folders and files that you forwarded to container (/data, sv.db etc)
-chown -Rv 999:999 .
-
-PORT=27017
-
-docker run --rm -it --name myserver \
-	-p $PORT:$PORT/udp \
-	-v $PWD/myserver/darkrp:/home/steam/gmodserv/garrysmod/gamemodes/darkrp/ \
-	-v $PWD/myserver/data:/home/steam/gmodserv/garrysmod/data/ \
-	-v $PWD/myserver/addons:/home/steam/gmodserv/garrysmod/addons/ \
-	-v $PWD/myserver/luabin:/home/steam/gmodserv/garrysmod/lua/bin/ \
-	-v $PWD/myserver/sv.db:/home/steam/gmodserv/garrysmod/sv.db \
-	defaced/gmod-server \
-		-port $PORT \
-		-tickrate 32 \
-		-maxplayers 8 \
-		-insecure \
-		+gamemode darkrp \
-		+map gm_construct \
-		+host_workshop_collection WORKSHOP_ID \
-		-authkey AUTH_KEY
+docker run --rm -it --name gmod \
+    -p $PORT:$PORT/udp \
+    -v $PWD/volume/addons:/home/steam/gmodserv/garrysmod/addons/ \
+    defaced/gmod-server \
+        -port $PORT \
+        -tickrate 32 \
+        -maxplayers 8 \
+        +map gm_construct \
 ```
 
 
