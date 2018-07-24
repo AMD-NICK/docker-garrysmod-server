@@ -1,0 +1,40 @@
+version: "2"
+
+services:
+  kosson:
+    image: gmod:1
+    command: -port 28282 \
+      -tickrate 32 \
+      -maxplayers 8 \
+      -insecure \
+      +gamemode darkrp \
+      +map gm_construct
+    stdin_open: true
+    tty: true
+    ports:
+      - "28282:28282/udp"
+    volumes:
+      - $PWD/volume/addons:/home/steam/gmodserv/garrysmod/addons/
+      - $PWD/volume/data:/home/steam/gmodserv/garrysmod/data/
+      - $PWD/volume/darkrp:/home/steam/gmodserv/garrysmod/gamemodes/darkrp/
+      - $PWD/volume/gmas:/home/steam/gmodserv/garrysmod/cache/srcds/
+      - $PWD/volume/luabin:/home/steam/gmodserv/garrysmod/lua/bin/
+      - $PWD/volume/sv.db:/home/steam/gmodserv/garrysmod/sv.db
+    hostname: keklol #https://img.qweqwe.ovh/1532284325896.png
+    extra_hosts:
+      - keklol:176.31.146.30
+    networks:
+      - gmodnet
+
+  #redis:
+  #  image: redis
+  #  command: redis-server #/data/redis.conf #--appendonly yes
+  #  #ports:
+  #  #  - "6379:6379"
+  #  volumes:
+  #    - "$PWD/redis:/data"
+  #  networks:
+  #    - gmodnet
+
+networks:
+  gmodnet:
