@@ -26,6 +26,14 @@
 # Dockerized Garry's Mod server
 Runs your gmod server in container as an executable
 
+# Features
+- Gmod running under non-root user (steam)
+- Working luarefresh. You can update your scripts and changes will apply instantly
+- Installed CSS content
+- You can run commands in your container like it's not containered server
+- Correct `GetConVarString("hostip")` if run with docker-compose (just edit ip inside)
+- tmysql4 and luasocket works fine
+
 # Example
 For detailed info look inside start.sh and docker-compose.yml
 
@@ -40,7 +48,6 @@ docker run --rm -it --name gmod \
         -maxplayers 8 \
         +map gm_construct \
 ```
-
 
 # Notes
 
