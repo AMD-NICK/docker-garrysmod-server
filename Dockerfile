@@ -22,19 +22,19 @@ RUN apt-get clean \
 # ===================================
 
 RUN groupadd -g 999 steam \
-	&& useradd -r -u 999 -g steam steam
+	&& useradd -r -m -d /gmodserv -u 999 -g steam steam
 
-WORKDIR /home/steam
-RUN mkdir -p steamcmd gmodserv content/css \
-	&& chown -vR steam:steam /home/steam
+RUN mkdir -p /gmodserv/steamcmd /gmodserv/content/css \
+	&& chown -vR steam:steam /gmodserv
 
 USER steam
+ENV HOME /gmodserv
 
 
 # SteamCMD + GMOD + CSS
 # ===================================
 
-WORKDIR /home/steam/steamcmd
+WORKDIR /gmodserv/steamcmd
 
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz \
 	&& tar -xvzf steamcmd_linux.tar.gz \
@@ -42,18 +42,18 @@ RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz 
 
 RUN ./steamcmd.sh \
 	+login anonymous \
-	+force_install_dir /home/steam/content/css \
+	+force_install_dir /gmodserv/content/css \
 	+app_update 232330 -validate \
-	+force_install_dir /home/steam/gmodserv \
+	+force_install_dir /gmodserv \
 	+app_update 4020 -validate \
 	+quit
 
-RUN echo '"mountcfg" {"cstrike" "/home/steam/content/css/cstrike"}' > /home/steam/gmodserv/garrysmod/cfg/mount.cfg
+RUN echo '"mountcfg" {"cstrike" "/gmodserv/content/css/cstrike"}' > /gmodserv/garrysmod/cfg/mount.cfg
 
 
 # Run server
 # ===================================
 
-WORKDIR /home/steam/gmodserv
-ENTRYPOINT ["./srcds_run"]
-CMD ["-game garrysmod", "-console", "-norestart", "-strictportbind"]
+WORKDIR /gmodserv
+ENTRYPOINT ["./srcds_run", "-game garrysmod", "-console", "-norestart", "-strictportbind"]
+CMD ["-port 27015", "-tickrate 32", "-maxplayers 16", "-insecure", "+map gm_construct"]

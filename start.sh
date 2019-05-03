@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#git clone https://github.com/AMD-NICK/docker-garrysmod-server.git gmod-docker
-#cd gmod-docker
-docker build -t gmod:1 .
+# git clone https://github.com/AMD-NICK/docker-garrysmod-server.git gmod-docker
+# cd gmod-docker
+# docker build -t gmod:1 .
 
 mkdir -p volume ; cd volume
 mkdir -p addons data luabin gmas

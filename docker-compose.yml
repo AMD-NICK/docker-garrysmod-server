@@ -1,28 +1,31 @@
 version: "2"
 
 services:
-  kosson:
-    image: gmod:1
-    command: -port 28282 \
-      -tickrate 32 \
-      -maxplayers 8 \
+  gmod:
+    build:
+        context: .
+    command: -port $PORT \
+      -tickrate $TICKRATE \
+      -maxplayers $PLAYERS \
       -insecure \
-      +gamemode darkrp \
-      +map gm_construct
+      +gamemode $GAMEMODE \
+      +map $MAP
     stdin_open: true
     tty: true
     ports:
-      - "28282:28282/udp"
+      - "$PORT:$PORT/udp"
     volumes:
-      - $PWD/volume/addons:/home/steam/gmodserv/garrysmod/addons/
-      - $PWD/volume/data:/home/steam/gmodserv/garrysmod/data/
-      - $PWD/volume/darkrp:/home/steam/gmodserv/garrysmod/gamemodes/darkrp/
-      - $PWD/volume/gmas:/home/steam/gmodserv/garrysmod/cache/srcds/
-      - $PWD/volume/luabin:/home/steam/gmodserv/garrysmod/lua/bin/
-      - $PWD/volume/sv.db:/home/steam/gmodserv/garrysmod/sv.db
-    hostname: keklol #https://img.qweqwe.ovh/1532284325896.png
+      - $PWD/volume/addons:/gmodserv/garrysmod/addons/
+      - $PWD/volume/data:/gmodserv/garrysmod/data/
+      - $PWD/volume/darkrp:/gmodserv/garrysmod/gamemodes/darkrp/
+      - $PWD/volume/gmas:/gmodserv/garrysmod/cache/srcds/
+      - $PWD/volume/luabin:/gmodserv/garrysmod/lua/bin/
+      - $PWD/volume/sv.db:/gmodserv/garrysmod/sv.db
+    # How to fix that docker shit?
+    # https://img.qweqwe.ovh/1532284325896.png
+    hostname: keklol
     extra_hosts:
-      - keklol:176.31.146.30
+      - keklol:$HOSTIP
     networks:
       - gmodnet
 
